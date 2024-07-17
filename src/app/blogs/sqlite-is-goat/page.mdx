@@ -1,0 +1,98 @@
+# Sqlite is a GOAT
+
+I am the big fans of Sqlite. It's still be my to-go Databas for production and learning Purposes. That's why i do include this to my Bexlite - Tech Stack.
+
+The question is, why ?
+
+The answer as because there is 3 reasons.
+
+1. Simple, no setup needed.
+2. Free, yep totally free.
+3. Embedded.
+
+Simple and Free, because you just need to create a file called .db, and it's done. Ezy peazy.
+
+However the embedded concept is the most cool ever. And in this article i would love to talk a bit about why embedded is blazingly more faster than server-client.
+
+Have you familiar with N+1 problem ? Let me give you a scenario.
+
+So i have a script to fetch data from database.
+
+```jsx
+const products = db.products.all().limit(20);
+
+for (product of products) {
+  const reviews = prouduct.review().limit(5);
+}
+```
+
+Yes it's exactly N+1 Problem, But the question is why it is a problem ?
+
+Yes, it's because individual query is super expensive. Especially when you use PostgreSQL, mySQL, SQL Server and so.
+
+I'll explain when i am saying it's expensive, what is the expensive components on its query.
+
+![Untitled](/blogs/sqlite-is-goat/1.png)
+
+This is an example there i am trying to fetch single/individual query. The Total time is about 36.579ms.
+
+The planning time: 0.043ms.
+
+The Execution time: 0.203ms.
+
+The total time is including CPU IO, Disk IO, and Network.
+
+If we sum the planning + the execution is only 0.246ms.
+
+But why it's 36.579ms ?
+
+### The problem is on the network! Have a look on my sketch below.
+
+![Untitled](/blogs/sqlite-is-goat/2.png)
+
+If you saying, “Bruh, it's only 36ms! Why you even care ?”
+
+Haha, yes i do care on every single thing i built! even it's 36ms, if you apply to N+1 Problem is just crazy!
+
+Let see to this code below :
+
+```jsx
+const products = db.products.all().limit(20);
+
+for (product of products) {
+  const reviews = product.reviews().limit(5);
+  for (review of reviews) {
+    const author = review.author();
+  }
+}
+```
+
+The total query is like this :
+
+- 1 product query
+- 20 review queries
+- 100 author queries
+
+So it's 121 in total. And if you multiply with 36ms = 4356ms.
+
+It 4.5 seconds! That's unacceptable just for getting the data. So Yes individual query is expensive. The most expensive component is on network time!
+
+So, how to fix this ?
+
+I would say, remove the network time! Yep, remove it.
+
+I'll give you example with embedded sqlite, which is no network time at all.
+
+![Untitled](/blogs/sqlite-is-goat/3.png)
+
+For single query its 0.7ms.
+
+121 queries \* 0.7ms = 84.7ms. Still under 100ms. Of course it's much faster. Why ? Because there is no network time!
+
+If you saying, why do you fetch individually ? No one doing that!
+
+Yes, this scenario is just to give you example how embedded is much faster than fancy DB outhere. Even if you optimize the query, the unoptimized sqlite is still faster!
+
+Hear me out,
+
+I am not saying we should use Sqlite on every single case. Nope, no at all. But Sqlite is so often getting underestimated due to it's nature. People always saying it's just toy database. But no. Sqlite is still good for most cases. Especially when you build an app for hobby, starter projects, and so.

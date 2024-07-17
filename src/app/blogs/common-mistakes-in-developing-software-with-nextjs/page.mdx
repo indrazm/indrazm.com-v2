@@ -1,0 +1,219 @@
+# Common Mistakes in Developing Software with Next.js
+
+After observing students building applications with Next.js several times, I've noticed some common mistakes that make their applications inefficient, hard to maintain, and difficult to understand.
+
+Let's take a look at some of these common mistakes.
+
+## Client Fetching
+
+A common issue arises when fetching data on the client side. This often happens because of influences from React.js. Next.js offers more and better features compared to React.js, which should be leveraged.
+
+Let's take a look at this code.
+
+```tsx
+"use client"
+
+import { useState } from "react"
+
+export default function Page() {
+	const [products, setProducts] = useState(null);
+
+	async function getData(){
+		const res = await fetch("/api/v1/products");
+		const data = await res.json();
+		setProducts(data);
+	};
+
+	useEffect(()=> {
+		getData()
+	},[]);
+
+	return ...
+};
+```
+
+This code fetches data using the getData() function inside useEffect, which of course runs on the client side. This approach has several drawbacks:
+
+- It's slower.
+- It's bad for SEO.
+- It doesn't leverage Next.js features.
+
+To fetch data efficiently, it should be done on the server side.
+
+Here's an example.
+
+```tsx
+export default async function Page() {
+	const res = await fetch(`${API_URL}/products`);
+	const data = await res.json();
+
+	// do something with data
+
+	return ...
+};
+```
+
+This code performs data fetching on the server side. This approach has many advantages:
+
+- It's faster because it's done on the server side.
+- It's good for SEO because the client receives rendered HTML.
+- It leverages Next.js features for server-side rendering.
+
+## Fetching Data on a Single Page
+
+While fetching data on the server side is much faster, if done excessively on a single page, it can slow down the rendering of that page.
+
+Let's take a look at an example.
+
+```tsx
+import { getProducts, getUsers, getComments } from "@/libs"
+
+export default async function Page(){
+	const products = await getProducts();
+	const users = await getUsers();
+	const comments = await getComments();
+
+	return ...
+}
+```
+
+Doing this excessively can significantly slow down rendering. The solution is to leverage Next.js features, such as Streaming UI. This can be achieved by splitting the fetch into multiple components.
+
+Here is an example where we will create three components:
+
+```tsx
+<ProductsComponent />
+<UsersComponent />
+<CommentsComponent />
+```
+
+By breaking down the fetch into multiple components, each component fetches its own data, making the rendering more efficient and taking advantage of Next.js streaming capabilities.
+
+```tsx
+import { getProducts } from "@/libs"
+
+export const ProductsComponent = async () => {
+	const products = await getProducts();
+
+	return ...
+};
+import { getUsers } from "@/libs"
+
+export const UsersComponent = async () => {
+	const users = await getProducts();
+
+	return ...
+} ;
+import { getComments } from "@/libs"
+
+export const CommentsComponent = async () => {
+	const comments = await getProducts();
+
+	return ...
+};
+```
+
+And then we compose to a single page.
+
+```tsx
+import { ProductsComponent, UsersComponent, CommentsComponent } from "./";
+
+export default async function Page() {
+  return (
+    <main>
+      <ProductsComponent />
+      <UsersComponent />
+      <CommentsComponent />
+    </main>
+  );
+}
+```
+
+Also, we use React Suspense to help with streaming.
+
+```tsx
+import React from "react";
+import { ProductsComponent, UsersComponent, CommentsComponent } from "./";
+
+export default async function Page() {
+  return (
+    <main>
+      <React.Suspense fallback={<p>Loading Products...</p>}>
+        <ProductsComponent />
+      </React.Suspense>
+      <React.Suspense fallback={<p>Loading Users...</p>}>
+        <UsersComponent />
+      </React.Suspense>
+      <React.Suspense fallback={<p>Loading Comments...</p>}>
+        <CommentsComponent />
+      </React.Suspense>
+    </main>
+  );
+}
+```
+
+## Not Utilizing the Caching System
+
+Caching is a method to speed up data fetching. Caching works by storing the results of data fetching in the browser cache. By doing this, data fetching is not done dynamically, especially for data that does not need to change frequently.
+
+1. The client will fetch data from the API.
+2. The result from the API will be stored in the browser cache.
+3. When the client fetches data again, it will first check the cache. If the data is present, it will return the data from the cache.
+4. If the data is not present, the client will fetch the data from the API and store it in the browser cache.
+
+**How to Implement Caching**
+
+There are several common ways to fetch data:
+
+Using fetch()
+Using third-party libraries
+Fetching data using fetch by default will implement caching.
+
+```tsx
+export const revalidate = 60;
+
+export default async function Page() {
+  const res = await fetch(API_URL);
+  const data = await res.json();
+}
+```
+
+Automatically, fetch() will cache data in the browser cache. We just need to add a revalidate function to set a limit on how long the cache will be stored. The value of revalidate is in seconds.
+
+So with the code above, Next.js will revalidate the API data after a maximum of 60 seconds from the previous fetch.
+
+**Fetching data using a third-party library.**
+
+```tsx
+const getData = async () => {
+  const data = await prisma.data.findMany();
+
+  return data;
+};
+
+export default async function Page() {
+  const data = await getData();
+}
+```
+
+```tsx
+import { cache } from "react";
+
+const getData = cache(async () => {
+  const data = await prisma.data.findMany();
+
+  return data;
+});
+```
+
+```tsx
+import { getData } from "@/libs";
+
+export const revalidate = 60;
+
+export default async function Page() {
+  const data = await getData();
+}
+```
+
+Cool!

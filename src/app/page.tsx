@@ -1,112 +1,122 @@
+import { BlogCard } from "@/components/blogCard";
+import { ExperienceCard } from "@/components/experienceCard";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <main className="max-w-[1500px] m-auto my-12 space-y-32">
+      <section className="space-y-12">
+        <div>
+          <div>Software Engineering</div>
+          <div>Product Design</div>
+          <div>Tech Savvy Generalist</div>
         </div>
-      </div>
-
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
+        <h1>
+          Interdisciplinary Generalist <br />& Software Engineer.
+        </h1>
+        <div className="flex gap-6 items-center">
+          <div>x.com</div>
+          <div>github</div>
+          <div>email</div>
+          <div>resume</div>
+          <div className="flex gap-2 items-center text-indigo-300 animate-pulse bg-indigo-900 px-2.5 py-1 rounded-full w-fit">
+            <div className="w-2 h-2 bg-indigo-500 rounded-full" />
+            <div className="text-sm font-medium">Open for Oppotunities</div>
+          </div>
+        </div>
+      </section>
+      <section className="space-y-4">
+        <div className="flex justify-between">
+          <div>
+            <h3>Selected Portfolio</h3>
+            <div className="border-t border-slate-700 w-5 mt-2" />
+          </div>
+          {/* <div className="flex flex-col items-end">
+            <h3>See All</h3>
+            <div className="border-t border-slate-700 w-5 mt-2" />
+          </div> */}
+        </div>
+        <div className="grid grid-cols-8 gap-6">
+          <Link href="/portfolios/designstripe-mockups" className="col-span-4 h-[480px] overflow-hidden relative">
+            <Image src="/portfolios/designstripe-mockups/cvr.png" alt="placeholder" width={900} height={900} />
+          </Link>
+          <Link href="/portfolios/devscale-lms" className="col-span-2 h-[480px] overflow-hidden relative">
+            <Image src="/portfolios/devscale-lms/cvr.png" alt="placeholder" width={900} height={900} />
+          </Link>
+          <Link href="/portfolios/bexlite" className="col-span-2 h-[480px] overflow-hidden relative">
+            <Image src="/portfolios/bexlite/c.png" alt="placeholder" width={900} height={900} />
+          </Link>
+        </div>
+      </section>
+      <section className="grid grid-cols-2 gap-12">
+        <div className="space-y-4">
+          <h3>About Me</h3>
+          <p className="text-lg text-slate-600 tracking-tight">
+            A generalist with a passion for design, product development, and software engineering. My collaborative efforts span across the globe, partnering
+            with diverse teams to create thoughtful products and immersive spatial experiences.
           </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
+          <p className="text-lg text-slate-600 tracking-tight">
+            Throughout my career, I have gained extensive experience in UI/UX design, product management, and the development of impactful products that enhance
+            human experiences.
           </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
+          <p className="text-lg text-slate-600 tracking-tight">
+            My work is driven by a commitment to innovation and a deep understanding of user needs, ensuring that every project I undertake makes a meaningful
+            difference.
           </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
+        </div>
+        <div className="space-y-4">
+          <h3>Experiences</h3>
+          <ExperienceCard company="Pixellin Studio" position="Creative Web Designer and CoFounder" year="AUG 2011 - JULY 2016" isOnsite />
+          <ExperienceCard company="SSH International, Bahrain" position="Generalist" year="AUG 2016 - JULY 2020" isOnsite />
+          <ExperienceCard company="Designstripe, Canada" position="Generalist and Software Engineer" year="AUG 2020 - MAY 2024" />
+          <ExperienceCard company="Devscale Indonesia" position="Founder and Mentor" year="MAY 2023 - TODAY" isOnsite />
+        </div>
+      </section>
+      <section className="space-y-4">
+        <div className="flex justify-between items-center">
+          <h3>Writings</h3>
+        </div>
+        <section className="grid grid-cols-3 gap-6">
+          <BlogCard title="Building Nextjs App with Clean Layered Architecture" date="8 July 2023" slug="building-nextjs-app-with-clean-layered-architecture" />
+          <BlogCard title="Sqlite is GOAT!" slug="sqlite-is-goat" date="22 June 2023" />
+          <BlogCard title="Common Mistakes in Developing Software with Nextjs" slug="common-mistakes-in-developing-software-with-nextjs" date="12 July 2023" />
+        </section>
+      </section>
+      <section className="grid grid-cols-3 gap-12 items-start">
+        <div className="flex flex-col justify-between h-full">
+          <p className="text-balance">
+            I do innovative solutions through user-centric design, strategic development, and transformative engineering. Global collaboration crafting digital
+            experiences that elevate human potential and meaningful progress.
           </p>
-        </a>
+          <p className="uppercase text-slate-200 font-medium">Let&apos;s Collaborate</p>
+        </div>
+        <h1 className="col-span-2 text-8xl">Building Impactful Products for Human</h1>
+      </section>
+      <div className="space-y-4">
+        <h2 className="uppercase text-xl text-slate-800">Experts Skills</h2>
+        <div className="flex gap-6 flex-wrap">
+          <div>Nextjs</div>
+          <div>Reactjs</div>
+          <div>Expressjs</div>
+          <div>MongoDB</div>
+          <div>Tailwindcss</div>
+          <div>Nodejs</div>
+          <div>Bunjs</div>
+          <div>Prisma</div>
+          <div>Sqlite</div>
+          <div>drizzleORM</div>
+          <div>prismaORM</div>
+          <div>HTMX</div>
+          <div>Elysiajs</div>
+          <div>Storybook</div>
+          <div>NXMonorepo</div>
+          <div>Turborepo</div>
+          <div>tRPC</div>
+          <div>Websocket</div>
+          <div>Vitest</div>
+          <div>Cypress</div>
+        </div>
       </div>
     </main>
   );

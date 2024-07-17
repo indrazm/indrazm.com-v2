@@ -1,0 +1,207 @@
+# Building Nextjs with Clean Layered Architecture
+
+I always say that building software isn't too hard unless it meets these criteria:
+
+- Understandable
+- Maintainable
+- Scalable
+
+Then it gets **tricky**. 🙂
+
+However, there's always a way to achieve this. The key is understanding the principles needed for creating understandable, maintainable, and scalable software.
+
+With these principles in hand, we can think about architecture, abstractions, coupling and cohesion, error debugging, and more.
+
+In Next.js, it can be challenging to achieve good abstractions with low coupling and high cohesion because Next.js is semi-opinionated and uses a file-based router. After a lot of trial and error, I've found an effective method to build Next.js with a clean layered architecture.
+
+So, what is clean layered architecture?
+
+It's an approach inspired by Uncle Bob's clean code principles. It's not simple, but I'll explain a few of its key principles. We start with these basics:
+
+## Separation of Concerns
+
+Dividing the software into chunks to separate its functions.
+
+## Single Responsibility Principle
+
+Each module should have only one responsibility.
+
+## Dependency Inversion Principle
+
+High-level modules shouldn't depend on low-level modules; both should depend on abstractions.
+
+There are more principles, but let's focus on these. Using these principles, we can layer our software as follows:
+
+## - Presentation Layer
+
+## - Repository Layer
+
+## - Service Layer
+
+## - DTO (Data Transfer Object)
+
+![image](/blogs/chart.png)
+
+How can we apply this to Next.js?
+
+We’ll organize our project into four main folders: App, Repositories, Services, and DTOs.
+
+### App: All UI components and pages.
+
+### Repositories: Logic interacting with databases.
+
+### Services: Business logic.
+
+### DTO: Data output mappers.
+
+For example, let's consider a user registration scenario.
+
+The user interacts with the presentation layer.
+When the user registers, they invoke a server action.
+The server action runs the register user service.
+The service calls various methods in the user repository.
+
+## Server Action
+
+```tsx
+"use server";
+
+import { createServerAction } from "zsa";
+import { redirect } from "next/navigation";
+
+import { registerUser } from "@/services/auth.services";
+import { sendVerificationEmail } from "@/services/email.services";
+import { registerSchema } from "@/services/validations/auth.schema";
+
+export const registerAction = createServerAction()
+  .input(registerSchema, { type: "formData" })
+  .handler(async ({ input }) => {
+    const { name, email, password } = input;
+
+    const user = await registerUser({ name, email, password });
+    await sendVerificationEmail(user.id, user.email, user.verificationCode);
+
+    redirect(`/verify?id=${user.id}`);
+  });
+```
+
+I recommend using the zsa package to better abstract server actions. It allows for easy input validation with Zod and processing of validated data. The server action should act as a controller, handling requests and responses to the presentation layer. The business logic for user registration is invoked inside the server action.
+
+## Presentation Layer
+
+```tsx
+"use client";
+
+import Link from "next/link";
+import { useServerAction } from "zsa-react";
+
+import { Alert } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+
+import { OauthLogin } from "../oauth-login";
+import { registerAction } from "./action";
+
+export default function Page() {
+  const { isPending, executeFormAction, error, isSuccess } = useServerAction(registerAction);
+
+  return (
+    <main className="space-y-6">
+      <section>
+        <h3>Register</h3>
+        <p>Create an account to continue</p>
+      </section>
+      <section className="space-y-2">
+        <form action={executeFormAction}>
+          <Input name="name" placeholder="Full Name" />
+          <Input name="email" placeholder="Email" />
+          <Input name="password" placeholder="Password" type="password" />
+          <Button disabled={isPending} className="w-full">
+            Register
+          </Button>
+        </form>
+        <OauthLogin />
+        {isSuccess && <Alert variant="success">Register success, please verify your email</Alert>}
+        {error?.fieldErrors?.name && <Alert variant="error">{error?.fieldErrors?.name}</Alert>}
+        {error?.fieldErrors?.email && <Alert variant="error">{error?.fieldErrors?.email}</Alert>}
+        {error?.fieldErrors?.password && <Alert variant="error">{error?.fieldErrors?.password}</Alert>}
+      </section>
+      <section>
+        <p>
+          Have an account?{" "}
+          <Link href="/login" className="link">
+            Login
+          </Link>
+        </p>
+        <Link href="/forgot-password" className="link">
+          Forgot password?
+        </Link>
+      </section>
+    </main>
+  );
+}
+```
+
+Using the zsa package, we utilize a hook called useServerAction, which provides helpful utilities like isPending, error, and isSuccess for building a better UI and handling errors. Error messages should be displayed for a better UX. No logic should be in the presentation layer.
+
+## Register Services
+
+```ts
+const userRepo = UserRepository.getInstance();
+
+export async function registerUser(args: { name: string; email: string; password: string }) {
+  const { name, email, password } = args;
+
+  // Check Collision
+  const user = await userRepo.findUserByIdOrEmail(email);
+  if (user) {
+    throw new Error("User already exists");
+  }
+
+  // Create User
+  const hashpassword = await argon.hash(password);
+  const newUser = await userRepo.createNewUser({ name, email, password: hashpassword });
+  const verificationCode = await VerificationRepositories.createVerificationCode(newUser.id);
+
+  return RegisterUserDTO.fromEntity(newUser, verificationCode);
+}
+```
+
+This focuses on calling various repository methods:
+
+Check for user collisions to ensure no existing user.
+Create a new user.
+Return data from the DTO.
+
+## DTO
+
+```ts
+export class RegisterUserDTO {
+  public id: string;
+  public name: string;
+  public verificationCode: string;
+  public email: string;
+
+  constructor(id: string, name: string, email: string, verificationCode: string) {
+    this.id = id;
+    this.name = name;
+    this.email = email;
+    this.verificationCode = verificationCode;
+  }
+
+  static fromEntity(entity: TUser, verificationCode: TVerification): RegisterUserDTO {
+    return new RegisterUserDTO(entity.id, entity.name, entity.email, verificationCode.code);
+  }
+}
+```
+
+The Data Transfer Object layer focuses on transforming original data into the result data. This is crucial for preventing sensitive information leaks.
+
+## Conclusion
+
+- Using a layered architecture approach makes maintaining the codebase easier.
+- If we need to add data returned from a service, we just change the DTO.
+- Business logic becomes safer and easier to manage since it’s composed of repository methods.
+- Testing is straightforward since everything is isolated.
+- The zsa package makes server actions more manageable, providing many utility methods with useServerAction hooks instead of useFormState, useFormStatus, or useActionState.
+- Input validation with Zod simplifies things, and debugging is easier since errors can be thrown at every layer to identify issues.
