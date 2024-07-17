@@ -16,10 +16,18 @@ export default function Home() {
           Interdisciplinary Generalist <br />& Software Engineer.
         </h1>
         <div className="flex gap-6 items-center">
-          <div>x.com</div>
-          <div>github</div>
-          <div>email</div>
-          <div>resume</div>
+          <a href="https://x.com/indrazulfi" className="text-indigo-300" target="_blank" rel="noopener noreferrer">
+            x.com
+          </a>
+          <a href="https://github.com/indrazm" className="text-indigo-300" target="_blank" rel="noopener noreferrer">
+            github
+          </a>
+          <a href="mailto:me@indrazm.com" className="text-indigo-300" target="_blank" rel="noopener noreferrer">
+            email
+          </a>
+          <a href="/resume.pdf" className="text-indigo-300" target="_blank" rel="noopener noreferrer">
+            resume
+          </a>
           <div className="flex gap-2 items-center text-indigo-300 animate-pulse bg-indigo-900 px-2.5 py-1 rounded-full w-fit">
             <div className="w-2 h-2 bg-indigo-500 rounded-full" />
             <div className="text-sm font-medium">Open for Oppotunities</div>
