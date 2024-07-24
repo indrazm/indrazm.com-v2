@@ -60,15 +60,15 @@ export default function Home() {
       <section className="grid grid-cols-2 gap-12">
         <div className="space-y-4">
           <h3>About Me</h3>
-          <p className="text-lg text-slate-600 tracking-tight">
+          <p className="text-lg text-slate-300 tracking-tight">
             A generalist with a passion for design, product development, and software engineering. My collaborative efforts span across the globe, partnering
             with diverse teams to create thoughtful products and immersive spatial experiences.
           </p>
-          <p className="text-lg text-slate-600 tracking-tight">
+          <p className="text-lg text-slate-300 tracking-tight">
             Throughout my career, I have gained extensive experience in UI/UX design, product management, and the development of impactful products that enhance
             human experiences.
           </p>
-          <p className="text-lg text-slate-600 tracking-tight">
+          <p className="text-lg text-slate-300 tracking-tight">
             My work is driven by a commitment to innovation and a deep understanding of user needs, ensuring that every project I undertake makes a meaningful
             difference.
           </p>
@@ -86,9 +86,10 @@ export default function Home() {
           <h3>Writings</h3>
         </div>
         <section className="grid grid-cols-3 gap-6">
-          <BlogCard title="Building Nextjs App with Clean Layered Architecture" date="8 July 2023" slug="building-nextjs-app-with-clean-layered-architecture" />
-          <BlogCard title="Sqlite is GOAT!" slug="sqlite-is-goat" date="22 June 2023" />
-          <BlogCard title="Common Mistakes in Developing Software with Nextjs" slug="common-mistakes-in-developing-software-with-nextjs" date="12 July 2023" />
+          <BlogCard title="How I write API" slug="how-i-write-api" date="24 July 2024" />
+          <BlogCard title="Building Nextjs App with Clean Layered Architecture" date="8 July 2024" slug="building-nextjs-app-with-clean-layered-architecture" />
+          <BlogCard title="Sqlite is GOAT!" slug="sqlite-is-goat" date="22 June 2024" />
+          <BlogCard title="Common Mistakes in Developing Software with Nextjs" slug="common-mistakes-in-developing-software-with-nextjs" date="12 July 2024" />
         </section>
       </section>
       <section className="grid grid-cols-3 gap-12 items-start">

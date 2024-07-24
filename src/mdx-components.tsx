@@ -8,8 +8,18 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         {children}
       </h1>
     ),
-    p: ({ children }) => <p style={{ fontSize: "16px", color: "rgb(148 163 184)" }}>{children}</p>,
-    strong: ({ children }) => <strong style={{ fontSize: "16px", color: "white" }}>{children}</strong>,
+    h2: ({ children }) => (
+      <h2 style={{ fontSize: "28px" }} className="text-slate-400 leading-relaxed">
+        {children}
+      </h2>
+    ),
+    h3: ({ children }) => (
+      <h3 style={{ fontSize: "16px" }} className="text-slate-400 leading-relaxed">
+        {children}
+      </h3>
+    ),
+    p: ({ children }) => <p style={{ fontSize: "18px", color: "rgb(148 163 184)" }}>{children}</p>,
+    strong: ({ children }) => <strong style={{ fontSize: "18px", color: "white" }}>{children}</strong>,
     li: ({ children }) => {
       return <li className="ml-4">- {children}</li>;
     },

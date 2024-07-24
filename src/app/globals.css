@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply bg-slate-950 text-slate-400 selection:bg-yellow-400 selection:text-black;
+    @apply bg-slate-900 text-slate-200 selection:bg-yellow-400 selection:text-black;
   }
   h1 {
     @apply text-white text-9xl font-semibold tracking-tighter;

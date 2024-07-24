@@ -1,0 +1,200 @@
+# How i write API
+
+Writing an API requires careful abstraction thinking in order to adhere to certain rules. I believe that building APIs should be comprehensible, expandable, and sustainable. But sometimes it hurts so much to think about the abstraction.
+
+It's really helpful to have an opinionated framework to make the abstraction comprehensible, such as nestjs (not nextjs). We are able to divide into modules, services, and controllers. Nevertheless, the mere notion of decorators makes me dislike nestjs. I can see that it's not very convenient and occasionally even makes the code messy, but it might just be a skill issue. ew.
+
+As you may be aware, I am the creator of Bexlite.dev. When it comes to developing backend APIs, ElysiaJS is my tool of choice. Its robust typing support and performance combine to make it a great fit for my programming style. Because of the way the framework is designed, code can be clear, effective, and easier to maintain over time.
+
+## Key Principles for API Abstraction
+
+When designing API architectures, I adhere to four core principles:
+
+- Isolation
+- Robust Error Handling
+- Understandability
+- Maintainability
+
+### Isolation
+
+To write modular, testable code, isolation is essential. We can easily unit test validation procedures, business logic, and database interactions individually by keeping concerns clearly segregated. This method makes future improvements and debugging easier while also increasing the quality of the code.
+
+### Robust Error Handling
+
+Error handling can be quite challenging, especially if your business logic contains a lot of moving components. If something goes wrong, you have to identify the exact place where it happened.
+
+### Understandability
+
+Understanding code abstractions can be challenging at times. Sometimes programmers build code that is so broad in its error handling that debugging the code becomes impossible and we are left with no idea what went wrong.
+
+### Maintainable
+
+Maintainability is the sum of our other principles; it's about building long-lasting APIs. As project requirements change, updating, extending, and refactoring code becomes much simpler when it is well-abstracted, isolated, and understood.
+
+## So, how to achieve API code to align with those principles above ?
+
+Personally, i would setup 3 core unit code :
+
+- Controllers
+- Repository
+- Services
+
+### Controllers
+
+Controllers should only focus on handling Request and Response. No else. It should not do more than that.
+
+### Repository
+
+Repository should only focus on DB Operations. It should be single responsibility.
+
+### Services
+
+Services should handle the business logic such as Input Validation, Interacting with Repository, and Extract data with Data Transfer object.
+
+Let's see on the Repository first.
+
+```ts
+// this example using plain object instead of class to be easier to understood for beginners
+const UserRepository = {
+  createUser: async (userData: TNewUser) => {
+    try {
+      const { username, email, password } = userData;
+      const newUser = await db.insert(users).values({ username, email, password }).returning();
+
+      return newUser[0];
+    } catch (error) {
+      console.error("Error in UserRepository.createUser:", (error as Error).message);
+      throw new DatabaseError("Error creating user in database", error.message);
+    }
+  },
+
+  getUser: async (username: string) => {
+    try {
+      const user = await db.select().from(users).where(eq(users.username, username));
+
+      if (user.length === 0) {
+        throw new NotFoundError("User not found");
+      }
+
+      return user[0];
+    } catch (error) {
+      console.error("Error in UserRepository.getUser:", (error as Error).message);
+      if (error instanceof NotFoundError) {
+        throw error;
+      }
+      throw new DatabaseError("Error fetching user from database");
+    }
+  },
+};
+```
+
+If you can see, i do create DatabaseError custom class to ease the error handling.
+Here is the class code :
+
+```ts
+export class CustomError extends Error {
+  public code: number;
+  public details?: unknown;
+
+  constructor(message: string, code: number, details?: unknown) {
+    super(message);
+    this.code = code;
+    this.name = this.constructor.name;
+    this.details = details;
+  }
+}
+
+export class DatabaseError extends CustomError {
+  constructor(message: string, details?: unknown) {
+    super(message, 500, details);
+  }
+}
+
+export class ValidationError extends CustomError {
+  constructor(message: string, details?: unknown) {
+    super(message, 400, details);
+  }
+}
+
+export class AuthError extends CustomError {
+  constructor(message: string) {
+    super(message, 401);
+  }
+}
+```
+
+The purpose of this class is to add message, statusCode and error details.
+I do add also console.error on the Repository to give clear message where the error occures.
+
+Now let see the services. For Example the Register Services.
+
+```ts
+export const AuthServices = {
+  registerUser: async (username: string, email: string, password: string) => {
+    const validation = registerSchema.safeParse({ username, email, password });
+
+    // Check input validation
+    if (!validation.success) {
+      throw new ValidationError("Input validation failed", validation.error.flatten().fieldErrors);
+    }
+
+    // Check if user exists
+    const user = await UserRepository.getUser(username);
+
+    if (user) {
+      throw new AuthError("User already exists");
+    }
+
+    // Hash password
+    const hashedPassword = await Bun.password.hash(password);
+
+    // Create user
+    const newUser = await UserRepository.createUser({
+      username: validation.data.username,
+      email: validation.data.email,
+      password: hashedPassword,
+    });
+
+    return newUser;
+  },
+};
+```
+
+The services should handle the business logic, starting from input validation, checking collisions, and then creating new user with User Repository. Better approach is using DTO to filter the returning data. Just to avoid possibilities of leaking sensitive data.
+
+Now let see the controller :
+
+```ts
+export const AuthController = {
+  handleRegister: async ({ body, set }: Context) => {
+    const { username, email, password } = body;
+
+    try {
+      const newUser = await AuthServices.registerUser(username, email, password);
+
+      set.status = 201;
+      return {
+        message: "User registered successfully",
+        data: newUser,
+      };
+    } catch (error) {
+      const err = error as Error;
+
+      if (err instanceof ValidationError) {
+        set.status = 400;
+      } else if (err instanceof AuthError) {
+        set.status = 401;
+      } else {
+        set.status = 500;
+      }
+
+      return {
+        message: err.message,
+        errors: error.details,
+      };
+    }
+  },
+};
+```
+
+In the controller, since it's only handle request and response, the business logic would be called from services. Hopefully it's understandable. I will create a repo for example very soon.

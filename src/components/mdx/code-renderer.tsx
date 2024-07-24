@@ -15,7 +15,7 @@ export const CodeRenderer = ({ children, lang }: Props) => {
       language={lang}
       showLineNumbers={false}
       theme={dracula}
-      customStyle={{ fontSize: "12px", backgroundColor: "rgb(30 41 59 / 0.3)", padding: "20px", borderRadius: "10px" }}
+      customStyle={{ fontSize: "13px", backgroundColor: "rgb(30 41 59 / 0.3)", padding: "20px", borderRadius: "10px" }}
     />
   );
 };
