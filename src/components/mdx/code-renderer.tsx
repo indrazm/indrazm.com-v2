@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { CodeBlock, dracula } from "react-code-blocks";
+import { CodeBlock, anOldHope } from "react-code-blocks";
 
 interface Props {
   children: React.ReactNode;
@@ -14,8 +14,8 @@ export const CodeRenderer = ({ children, lang }: Props) => {
       text={children as string}
       language={lang}
       showLineNumbers={false}
-      theme={dracula}
-      customStyle={{ fontSize: "13px", backgroundColor: "rgb(30 41 59 / 0.3)", padding: "20px", borderRadius: "10px" }}
+      theme={anOldHope}
+      customStyle={{ fontSize: "14px", backgroundColor: "rgb(255 255 255 / 0.01)", padding: "20px", border: "1px solid rgb(80 80 80 / 0.2)" }}
     />
   );
 };

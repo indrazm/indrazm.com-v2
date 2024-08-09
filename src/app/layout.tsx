@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Onest as FontSans } from "next/font/google";
+import { Manrope as FontSans } from "next/font/google";
 import "./globals.css";
+import Script from "next/script";
 
 const fontSans = FontSans({ subsets: ["latin"] });
 
@@ -16,6 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Script src="https://cloud.umami.is/script.js" data-website-id="0fcf646c-ba48-4827-9c14-a256cbb49367" defer />
       <body className={`${fontSans.className} antialiased`}>{children}</body>
     </html>
   );

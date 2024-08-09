@@ -4,22 +4,22 @@ import { CodeRenderer } from "./components/mdx/code-renderer";
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     h1: ({ children }) => (
-      <h1 style={{ fontSize: "40px" }} className="text-slate-400 text-balance leading-relaxed">
+      <h1 style={{ fontSize: "40px" }} className="text-neutral-200 text-balance leading-relaxed">
         {children}
       </h1>
     ),
     h2: ({ children }) => (
-      <h2 style={{ fontSize: "28px" }} className="text-slate-400 leading-relaxed">
+      <h2 style={{ fontSize: "20px" }} className="text-neutral-200 leading-relaxed">
         {children}
       </h2>
     ),
     h3: ({ children }) => (
-      <h3 style={{ fontSize: "16px" }} className="text-slate-400 leading-relaxed">
+      <h3 style={{ fontSize: "16px" }} className="text-neutral-200 leading-relaxed">
         {children}
       </h3>
     ),
-    p: ({ children }) => <p style={{ fontSize: "18px", color: "rgb(148 163 184)" }}>{children}</p>,
-    strong: ({ children }) => <strong style={{ fontSize: "18px", color: "white" }}>{children}</strong>,
+    p: ({ children }) => <p>{children}</p>,
+    strong: ({ children }) => <strong style={{ color: "white" }}>{children}</strong>,
     li: ({ children }) => {
       return <li className="ml-4">- {children}</li>;
     },
