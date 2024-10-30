@@ -53,7 +53,7 @@ export default async function Home() {
           <h3>Writings</h3>
         </div>
         <section className="grid grid-cols-2 gap-6">
-          <BlogCard title="Nested API endpoint and It's issue" slug="nested-api-endpoint" date="24 July 2024" />
+          <BlogCard title="Nested API endpoint and It's issue" slug="nested-api-endpoint" date="27 October 2024" />
           <BlogCard title="How I write API" slug="how-i-write-api" date="24 July 2024" />
           <BlogCard title="Building Nextjs App with Clean Layered Architecture" date="8 July 2024" slug="building-nextjs-app-with-clean-layered-architecture" />
           <BlogCard title="Sqlite is GOAT!" slug="sqlite-is-goat" date="22 June 2024" />
