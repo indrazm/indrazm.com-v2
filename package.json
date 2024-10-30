@@ -13,6 +13,7 @@
     "@mdx-js/react": "^3.0.1",
     "@next/mdx": "^14.2.5",
     "@types/mdx": "^2.0.13",
+    "@umami/api-client": "^0.69.0",
     "next": "14.2.5",
     "react": "^18",
     "react-code-blocks": "^0.1.6",

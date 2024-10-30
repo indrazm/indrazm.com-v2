@@ -1,0 +1,156 @@
+# Nested API Endpoint and it's issue.
+
+In a recent sharing session with our CTO Brian de Heus, about REST API. One of the thing that i remember is about nested API Endpoint. He pointing that Nested endpoint is bad. However due to the time, we unfortunately getting less context about it so i'd love to give more explanation and context why it's bad.
+
+## What is Nested API Endpoint
+
+A nested API endpoint refers to an API structure where one resource is contained within another resource. This allows for more specific queries that reflect the hierarchical relationships between different resources in a system.
+
+```bash
+# Simple endpoint
+/api/v1/users/123
+```
+
+```bash
+# Nested endpoints
+/api/v1/users/123/tasks/456
+/api/v1/teams/789/users/123/tasks/456
+```
+
+## Perceived Benefits
+
+At first glance, nested endpoints appear to offer several advantages:
+
+### 1. Clear Resource Hierarchy
+
+- They explicitly show ownership relationships
+- The URL path reflects your data structure
+- They make resource containment obvious
+
+### 2. Intuitive Navigation
+
+- URLs feel natural to read
+- They mirror how we think about relationships
+- They seem to make API exploration easier
+
+### 3. Apparent Simplicity
+
+- They match how we often visualize data relationships
+- They align with how we might structure database queries
+- They appear to encode business logic in the URL
+
+However, these benefits often turn out to be superficial when compared to the problems they introduce.
+
+## The Major Challenges
+
+### 1. Path Ambiguity and Redundancy
+
+One of the most significant issues is the creation of multiple valid paths to the same resource. Consider these endpoints:
+
+```bash
+/api/v1/tasks/456
+/api/v1/users/123/tasks/456
+/api/v1/teams/789/users/123/tasks/456
+```
+
+This redundancy raises several critical questions:
+
+- **Consistency**: Do all these endpoints return identical data?
+- **Best Practices**: Which endpoint should developers prefer?
+- **Maintenance**: How do you ensure consistent behavior across all paths?
+- **Documentation**: How do you effectively document multiple ways to access the same resource?
+
+### 2. Inconsistent Depth Problems
+
+Let say we have this nested structure :
+
+```bash
+/api/v1/companies/1/departments/2/employees/3/tasks/4/comments/5
+```
+
+This structure raises several architectural questions:
+
+- **Access Patterns**: Should resources be accessible at every level?
+
+```bash
+/api/v1/comments/5
+/api/v1/tasks/4/comments/5
+/api/v1/employees/3/comments/5
+```
+
+- **Consistency Rules**: What determines valid access paths?
+- **Performance**: How do you efficiently validate the entire resource chain?
+- **Caching**: How do you effectively cache responses with so many variations?
+
+### 3. Permission and Authorization Complexity
+
+Nested endpoints often create confusion around access control:
+
+```bash
+/api/v1/users/123/posts/456        # Requires user ownership?
+/api/v1/posts/456                  # Just needs authentication?
+/api/v1/teams/789/posts/456        # Demands team membership?
+```
+
+This leads to several security considerations:
+
+- **Permission Inheritance**: Should access rights cascade through the hierarchy?
+- **Authorization Logic**: How do you maintain consistent authorization across different paths?
+- **Security Auditing**: How do you ensure all access patterns are properly secured?
+
+### 4. Resource Relationship Confusion
+
+Resources often belong to multiple parent entities, making the "correct" path unclear:
+
+```bash
+/api/v1/users/123/posts/456        # Post by user perspective
+/api/v1/categories/789/posts/456   # Post by category perspective
+/api/v1/teams/567/posts/456        # Post by team perspective
+```
+
+This creates several design challenges:
+
+- **Canonical URLs**: Which path should be considered the "official" one?
+- **Data Consistency**: How do you ensure consistent representation across paths?
+- **API Evolution**: How do you handle adding new relationships?
+
+## Better Approach
+
+### 1. Flat Resources with Query Parameters
+
+```bash
+/api/v1/tasks?user_id=123&team_id=789
+/api/v1/tasks/456
+```
+
+### 2. Resource Expansion Parameters
+
+```bash
+/api/v1/tasks/456?expand=user,team,comments
+```
+
+### 3. Separate Relationship Endpoints
+
+```bash
+/api/v1/users/123/task-assignments
+```
+
+### Benefits of Flat Design
+
+- **Simplicity**: One resource, one endpoint
+- **Clear Permissions**: Easier to implement and understand
+- **Better Caching**: Simpler URL patterns
+- **Flexible Querying**: Use query parameters for filtering and relationships
+- **Easier Evolution**: Add new relationships without changing endpoints
+
+## Conclusion
+
+While nested API endpoints might seem intuitive initially, they often create more problems than they solve. The apparent benefits of hierarchical representation are outweighed by issues with ambiguity, permissions, and maintenance.
+When designing your API:
+
+- Prefer flat resource endpoints
+- Use query parameters for filtering and relationships
+- Consider the long-term maintainability of your API
+- Focus on clarity and consistency over hierarchical representation
+
+Remember, the goal of API design is to create interfaces that are not just easy to understand, but also easy to maintain, secure, and evolve over time.

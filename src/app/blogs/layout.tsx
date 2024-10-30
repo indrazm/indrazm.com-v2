@@ -13,7 +13,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </svg>
         Back to Home
       </Link>
-      <div className="space-y-4">{children}</div>
+      <div className="space-y-8 leading-7">{children}</div>
     </main>
   );
 }

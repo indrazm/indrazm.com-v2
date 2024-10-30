@@ -9,19 +9,25 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       </h1>
     ),
     h2: ({ children }) => (
-      <h2 style={{ fontSize: "20px" }} className="text-neutral-200 leading-relaxed">
+      <h2 style={{ fontSize: "32px" }} className="text-neutral-200 leading-relaxed">
         {children}
       </h2>
     ),
     h3: ({ children }) => (
-      <h3 style={{ fontSize: "16px" }} className="text-neutral-200 leading-relaxed">
+      <h3 style={{ fontSize: "20px", color: "#f1f1f1" }} className="leading-relaxed">
         {children}
       </h3>
     ),
     p: ({ children }) => <p>{children}</p>,
     strong: ({ children }) => <strong style={{ color: "white" }}>{children}</strong>,
+    ol: ({ children }) => <ol className="list-decimal list-outside">{children}</ol>,
+    ul: ({ children }) => <ul className="list-disc list-outside space-y-2">{children}</ul>,
     li: ({ children }) => {
-      return <li className="ml-4">- {children}</li>;
+      return (
+        <li className="list-item list-disc ">
+          <div>- {children}</div>
+        </li>
+      );
     },
     code: ({ children, className }) => {
       const language = className?.replace("language-", "");
