@@ -2,10 +2,21 @@ import { BlogCard } from "@/components/blogCard";
 import { ExperienceCard } from "@/components/experienceCard";
 import Image from "next/image";
 import photo from "../../public/me.jpg";
+import { SpinningText } from "@/components/magicui/spinning-text";
+import { VelocityScroll } from "@/components/magicui/scroll-based-velocity";
+import { AnimatedGridPattern } from "@/components/magicui/animated-grid-pattern";
+import { cn } from "@/lib/utils";
 
 export default async function Home() {
   return (
     <main className="max-w-3xl m-auto my-12 space-y-24">
+      <AnimatedGridPattern
+        numSquares={80}
+        maxOpacity={0.3}
+        duration={0.2}
+        repeatDelay={1}
+        className={cn("[mask-image:radial-gradient(500px_circle_at_center,white,transparent)]", "inset-x-0 inset-y-[-30%] h-[200%] skew-y-12 opacity-50")}
+      />
       <section className="space-y-8">
         <div className="space-y-2">
           <h1>Software & AI Engineer</h1>
@@ -24,7 +35,12 @@ export default async function Home() {
         </div>
       </section>
       <section className="space-y-8">
-        <Image alt="Indra Zulfi" src={photo} className="w-24 h-24 rounded-xl grayscale" />
+        <div className="relative">
+          <SpinningText reverse className="text-xs absolute top-2 left-2" duration={5} radius={6}>
+            think different - do better
+          </SpinningText>
+          <Image alt="Indra Zulfi" src={photo} className="w-24 h-24 rounded-xl grayscale" />
+        </div>
         <h3>About Me</h3>
         <p className="text-lg text-stone-300 ">
           Solving complex problems and building the future drives my work as a software and AI engineer. My background spans design, product development, and
@@ -57,6 +73,11 @@ export default async function Home() {
           <ExperienceCard company="Pixellin Studio" position="coFounder and Web Developer" year="AUG 2011 - JULY 2016" isOnsite />
         </section>
       </section>
+      <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
+        <VelocityScroll defaultVelocity={0.2} numRows={1} className="text-sm tracking-wider">
+          javascript - typescript - python - django - fastapi - nextjs - react - nodejs - tailwindcss - css - html - openai - mistral - llama - claude -
+        </VelocityScroll>
+      </div>
       <section className="space-y-2">
         <h2 className="text-balance">Building Impactful AI-Powered User Experiences</h2>
         <p className="text-sm">
