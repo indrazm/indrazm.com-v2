@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter_Tight as FontSans } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
+import { Scroll } from "./scroll";
 
 const fontSans = FontSans({ subsets: ["latin"], weight: "400" });
 
@@ -18,7 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <Script src="https://cloud.umami.is/script.js" data-website-id="0fcf646c-ba48-4827-9c14-a256cbb49367" defer />
-      <body className={`${fontSans.className} antialiased xl:p-0 p-6 `}>{children}</body>
+      <body className={`${fontSans.className} antialiased xl:p-0 p-6 `}>
+        <Scroll>{children}</Scroll>
+      </body>
     </html>
   );
 }

@@ -6,7 +6,7 @@ import Image from "next/image";
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     h1: ({ children }) => (
-      <h1 style={{ fontSize: "40px" }} className="text-zinc-200 text-balance leading-relaxed">
+      <h1 style={{ fontSize: "40px", lineHeight: "1.2" }} className="text-zinc-200 text-balance leading-relaxed">
         {children}
       </h1>
     ),

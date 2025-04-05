@@ -58,9 +58,9 @@ export default async function Home() {
         <section className="grid grid-cols-1 gap-2">
           <BlogCard title="Nested API endpoint and It's issue" slug="nested-api-endpoint" date="27 October 2024" />
           <BlogCard title="How I write API" slug="how-i-write-api" date="24 July 2024" />
+          <BlogCard title="Common Mistakes in Developing Software with Nextjs" slug="common-mistakes-in-developing-software-with-nextjs" date="12 July 2024" />
           <BlogCard title="Building Nextjs App with Clean Layered Architecture" date="8 July 2024" slug="building-nextjs-app-with-clean-layered-architecture" />
           <BlogCard title="Sqlite is GOAT!" slug="sqlite-is-goat" date="22 June 2024" />
-          <BlogCard title="Common Mistakes in Developing Software with Nextjs" slug="common-mistakes-in-developing-software-with-nextjs" date="12 July 2024" />
         </section>
       </section>
       <section className="space-y-6">
