@@ -64,6 +64,30 @@ export default async function Home() {
         </section>
       </section>
       <section className="space-y-6">
+        <div>
+          <h3>What i&apos;ve crafted</h3>
+          <p className="text-xs text-zinc-600">Will be updated soon</p>
+        </div>
+        <section className="grid grid-cols-2">
+          <div className="space-y-2 p-4 cursor-pointer hover:bg-zinc-900 border border-zinc-800/20 transition duration-100">
+            <h3>Litojs</h3>
+            <p className="text-sm text-zinc-600">Pragmatic Javascript Framework</p>
+          </div>
+          <div className="space-y-2 p-4 cursor-pointer hover:bg-zinc-900 border border-zinc-800/20 transition duration-100">
+            <h3>Bexlite</h3>
+            <p className="text-sm text-zinc-600">Simple yet Powerful Javascript Tech-Stack</p>
+          </div>
+          <div className="space-y-2 p-4 cursor-pointer hover:bg-zinc-900 border border-zinc-800/20 transition duration-100">
+            <h3>Devscale</h3>
+            <p className="text-sm text-zinc-600">Software Engineering Bootcamp - 350+ Students</p>
+          </div>
+          <div className="space-y-2 p-4 cursor-pointer hover:bg-zinc-900 border border-zinc-800/20 transition duration-100">
+            <h3>Phinodes</h3>
+            <p className="text-sm text-zinc-600">SaaS - Build AI Applications Effortlessly</p>
+          </div>
+        </section>
+      </section>
+      <section className="space-y-6">
         <h3>Experiences</h3>
         <section className="-space-y-[1px]">
           <ExperienceCard isActive company="Adgorithmics, Singapore" position="Sr. Software Engineer" year="AUG 2024" />
@@ -72,7 +96,7 @@ export default async function Home() {
           <ExperienceCard company="SSH International, Bahrain" position="Generalist" year="AUG 2016 - JULY 2020" isOnsite />
           <ExperienceCard company="Pixellin Studio" position="coFounder and Web Developer" year="AUG 2011 - JULY 2016" isOnsite />
         </section>
-      </section>
+      </section>{" "}
       <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
         <VelocityScroll defaultVelocity={0.2} numRows={1} className="text-sm tracking-wider">
           javascript - typescript - python - django - fastapi - nextjs - react - nodejs - tailwindcss - css - html - openai - mistral - llama - claude -
