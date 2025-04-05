@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import { HyperText } from "./magicui/hyper-text";
 
 interface Props {
   slug: string;

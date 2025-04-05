@@ -9,18 +9,19 @@ import { cn } from "@/lib/utils";
 
 export default async function Home() {
   return (
-    <main className="max-w-3xl m-auto my-12 space-y-24">
+    <main className="max-w-3xl m-auto my-12 space-y-24 ">
       <AnimatedGridPattern
         numSquares={80}
         maxOpacity={0.3}
         duration={0.2}
         repeatDelay={1}
-        className={cn("[mask-image:radial-gradient(500px_circle_at_center,white,transparent)]", "inset-x-0 inset-y-[-30%] h-[200%] skew-y-12 opacity-50")}
+        className={cn("[mask-image:radial-gradient(500px_circle_at_center,white,transparent)]", "inset-x-0 inset-y-[-60%] h-[200%] skew-y-12 opacity-50")}
       />
       <section className="space-y-8">
         <div className="space-y-2">
-          <h1>Software & AI Engineer</h1>
-          <h2 className="text-2xl text-zinc-200">Making a Difference Through Technology</h2>
+          <h1>
+            Interdisciplinary Software <br />& AI Engineer
+          </h1>
         </div>
         <div className="flex gap-6 items-center">
           <a href="https://x.com/indrazulfi" className="text-stone-300" target="_blank" rel="noopener noreferrer">
@@ -36,19 +37,18 @@ export default async function Home() {
       </section>
       <section className="space-y-8">
         <div className="relative">
-          <SpinningText reverse className="text-xs absolute top-2 left-2" duration={5} radius={6}>
+          <SpinningText reverse className="text-xs absolute top-2 left-24" duration={5} radius={6}>
             think different - do better
           </SpinningText>
           <Image alt="Indra Zulfi" src={photo} className="w-24 h-24 rounded-xl grayscale" />
         </div>
-        <h3>About Me</h3>
         <p className="text-lg text-stone-300 ">
-          Solving complex problems and building the future drives my work as a software and AI engineer. My background spans design, product development, and
-          software engineering, allowing me to approach challenges from a holistic perspective.
+          Driven by a passion for building intelligent and user-centric solutions, I&apos;m a software and AI engineer dedicated to bringing innovative ideas to
+          life. My experience spans design, product development, and software engineering, allowing me to approach challenges with a holistic perspective and
+          create impactful products that enhance human experiences.
         </p>
         <p className="text-lg text-stone-300 ">
-          A desire to create innovative, user-centered solutions that leverage the power of AI and modern software development practices fuels my work.
-          Collaborating with diverse teams worldwide, I strive to build products and experiences that make a tangible difference.
+          I thrive on collaborating with diverse teams across the globe, leveraging the power of AI and modern software practices to make a tangible difference.
         </p>
       </section>
       <section className="space-y-8">

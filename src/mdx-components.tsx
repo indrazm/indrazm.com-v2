@@ -1,5 +1,7 @@
+/* eslint-disable @next/next/no-img-element */
 import type { MDXComponents } from "mdx/types";
 import { CodeRenderer } from "./components/mdx/code-renderer";
+import Image from "next/image";
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
@@ -19,6 +21,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         {children}
       </p>
     ),
+    img: ({ src, alt }) => <img src={src} alt={alt} width={1000} height={1000} style={{ borderRadius: "6px" }} />,
     strong: ({ children }) => <strong style={{ color: "white" }}>{children}</strong>,
     ol: ({ children }) => <ol className="list-decimal list-outside">{children}</ol>,
     ul: ({ children }) => <ul className="list-disc list-outside space-y-2">{children}</ul>,
