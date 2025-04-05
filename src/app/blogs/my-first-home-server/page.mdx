@@ -1,0 +1,38 @@
+# My first homeserver
+
+I've been obsessed with Homelab server recently, i feel that its really useful for Software Engineer. And i want to share my experience with you.
+
+## Why
+
+I was triggered by my twitter timeline were my folks starting use server at home, and i was thinking why ?! In my head i always thinking that server would always used for serving something to internet. That was my mental model.
+
+However i was wrong! Yep. The core benefit of having a home server isn't necessarily about outward-facing applications (though it can be!), but rather about **control and customization within your own network.** I started to see the potential for:
+
+- **Centralized Storage:** A place to backup my important files, photos, and videos without relying on cloud services that I don't fully control.
+- **Self-Hosted Applications:** Running services n8n, my own apps.
+- **Learning and Experimentation:** A safe and isolated environment to experiment with new technologies, DevOps practices, and server administration without fear of breaking anything important.
+- **Data Privacy:** Taking back control of my data by storing it on my own hardware. Less reliance on big tech and more ownership of my digital life.
+
+These reasons resonated deeply with me. As a software engineer, I valued the learning opportunities and the control over my data. The idea of creating my own little digital ecosystem was incredibly appealing.
+
+## The Hardware
+
+So, I decided to dive in. The first question was: what hardware should I use?
+
+I was thinking to start with Respberry pi. Since it's low power and quite cheap. But after chit-chat with some friends they were suggesting to use minipc .
+
+Ultimately, I bought single minipc Elitedesk HP with i5 2core 4 threads, 16GB RAM and 128GB SSD.
+
+![Untitled](/blogs/image.png)
+
+## The Software
+
+With the hardware sorted, the next step was to choose the operating system and software stack. This was another rabbit hole of possibilities!
+
+- **Operating System:** I considered a few options, including Ubuntu Server, Debian, and even Windows Server. I ultimately went with **Ubuntu Server** due to its widespread adoption, large community support, and ease of use. Plus, I was already somewhat familiar with Ubuntu from my development environment.
+
+- **Virtualization (Optional):** I debated whether to use virtualization to run multiple services in isolated containers. Docker was the obvious choice here. While it added a layer of complexity, I decided it was worth it for the isolation and management benefits. So, I decided to install Docker.
+
+## Challenges and Learnings
+
+The journey wasn't without its challenges. Despite the challenges, I learned a ton along the way. I gained a much deeper understanding of server administration, networking, and containerization. It was a rewarding experience, and I'm excited to continue exploring the possibilities of my home server.

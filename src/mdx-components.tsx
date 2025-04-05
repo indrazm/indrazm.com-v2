@@ -26,14 +26,10 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ol: ({ children }) => <ol className="list-decimal list-outside">{children}</ol>,
     ul: ({ children }) => <ul className="list-disc list-outside space-y-2">{children}</ul>,
     li: ({ children }) => {
-      return (
-        <li className="list-item list-disc ">
-          <div>- {children}</div>
-        </li>
-      );
+      return <li className="list-item list-disc list-inside">{children}</li>;
     },
     code: ({ children, className }) => {
-      const language = className?.replace("language-", "");
+      const language = className?.replace("language", "");
       return <CodeRenderer lang={language}>{children}</CodeRenderer>;
     },
     a: ({ href, children }) => {

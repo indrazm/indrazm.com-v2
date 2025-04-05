@@ -6,8 +6,8 @@ import "react-nice-scroll/dist/styles.css";
 
 export const Scroll = ({ children }: React.PropsWithChildren) => {
   return (
-    <ScrollContainer continuousScrolling>
-      <div className="h-[105vh] px-12 pb-12">{children}</div>
+    <ScrollContainer>
+      <div className="h-[110vh] px-12 pb-12">{children}</div>
     </ScrollContainer>
   );
 };

@@ -3,6 +3,7 @@ import { Inter_Tight as FontSans } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
 import { Scroll } from "./scroll";
+import Link from "next/link";
 
 const fontSans = FontSans({ subsets: ["latin"], weight: "400" });
 
@@ -19,8 +20,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <Script src="https://cloud.umami.is/script.js" data-website-id="0fcf646c-ba48-4827-9c14-a256cbb49367" defer />
-      <body className={`${fontSans.className} antialiased xl:p-0 p-6 `}>
-        <Scroll>{children}</Scroll>
+      <body className={`${fontSans.className} antialiased xl:p-0 p-6 relative min-h-[97vh]`}>
+        <div className="absolute z-10 bottom-10 left-10 space-y-2">
+          <Link href="/" className="block p-2 border bg-zinc-950/10 backdrop-blur-sm hover:bg-zinc-900 border-zinc-900 w-fit rounded-lg cursor-pointer text-xs">
+            Home
+          </Link>
+          <Link
+            href="/language-and-frameworks"
+            className="block p-2 border bg-zinc-950/10 backdrop-blur-sm hover:bg-zinc-900 border-zinc-900 w-fit rounded-lg cursor-pointer text-xs"
+          >
+            Language and Frameworks
+          </Link>
+        </div>
+        <div>{children}</div>
       </body>
     </html>
   );
