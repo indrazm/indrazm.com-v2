@@ -27,14 +27,17 @@ export default async function Home() {
             </h1>
           </div>
           <div className="flex gap-6 items-center">
-            <a href="https://x.com/indrazulfi" className="text-stone-300" target="_blank" rel="noopener noreferrer">
+            <a href="https://x.com/indrazulfi" className="text-stone-300 hover:text-orange-500" target="_blank" rel="noopener noreferrer">
               x.com
             </a>
-            <a href="https://github.com/indrazm" className="text-stone-300" target="_blank" rel="noopener noreferrer">
+            <a href="https://github.com/indrazm" className="text-stone-300 hover:text-orange-500" target="_blank" rel="noopener noreferrer">
               github
             </a>
-            <a href="mailto:me@indrazm.com" className="text-stone-300" target="_blank" rel="noopener noreferrer">
+            <a href="mailto:me@indrazm.com" className="text-stone-300 hover:text-orange-500" target="_blank" rel="noopener noreferrer">
               email
+            </a>
+            <a href="https://www.linkedin.com/in/indrazm/" className="text-stone-300 hover:text-orange-500" target="_blank" rel="noopener noreferrer">
+              linkedin
             </a>
           </div>
         </section>
