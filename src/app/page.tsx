@@ -54,28 +54,7 @@ export default async function Home() {
             I thrive on collaborating with diverse teams across the globe, leveraging the power of AI and modern software practices to make a tangible
             difference.
           </p>
-        </section>
-        <section className="space-y-8">
-          <div className="flex justify-between items-center">
-            <h3>Writings</h3>
-          </div>
-          <section className="grid grid-cols-1 gap-2">
-            <BlogCard title="My First Home Server" slug="my-first-home-server" date="5 Apr 2025" />
-            <BlogCard title="Nested API endpoint and It's issue" slug="nested-api-endpoint" date="27 October 2024" />
-            <BlogCard title="How I write API" slug="how-i-write-api" date="24 July 2024" />
-            <BlogCard
-              title="Common Mistakes in Developing Software with Nextjs"
-              slug="common-mistakes-in-developing-software-with-nextjs"
-              date="12 July 2024"
-            />
-            <BlogCard
-              title="Building Nextjs App with Clean Layered Architecture"
-              date="8 July 2024"
-              slug="building-nextjs-app-with-clean-layered-architecture"
-            />
-            <BlogCard title="Sqlite is GOAT!" slug="sqlite-is-goat" date="22 June 2024" />
-          </section>
-        </section>
+        </section>{" "}
         <section className="space-y-6">
           <div>
             <h3>What i&apos;ve crafted</h3>
@@ -108,6 +87,27 @@ export default async function Home() {
               <h3>Phinodes</h3>
               <p className="text-sm text-zinc-600">SaaS - Build AI Applications Effortlessly</p>
             </a>
+          </section>
+        </section>
+        <section className="space-y-8">
+          <div className="flex justify-between items-center">
+            <h3>Writings</h3>
+          </div>
+          <section className="grid grid-cols-1 gap-2">
+            <BlogCard title="My First Home Server" slug="my-first-home-server" date="5 Apr 2025" />
+            <BlogCard title="Nested API endpoint and It's issue" slug="nested-api-endpoint" date="27 October 2024" />
+            <BlogCard title="How I write API" slug="how-i-write-api" date="24 July 2024" />
+            <BlogCard
+              title="Common Mistakes in Developing Software with Nextjs"
+              slug="common-mistakes-in-developing-software-with-nextjs"
+              date="12 July 2024"
+            />
+            <BlogCard
+              title="Building Nextjs App with Clean Layered Architecture"
+              date="8 July 2024"
+              slug="building-nextjs-app-with-clean-layered-architecture"
+            />
+            <BlogCard title="Sqlite is GOAT!" slug="sqlite-is-goat" date="22 June 2024" />
           </section>
         </section>
         <section className="space-y-6">
