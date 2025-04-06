@@ -14,8 +14,9 @@ export default async function Page() {
             <div className="space-y-4">
               <h3>Frontend</h3>
               <ul className="flex flex-wrap gap-2">
-                <li>Reactjs (Most Favorite)</li>
+                <li>Reactjs</li>
                 <li>Nextjs</li>
+                <li>HTMX</li>
                 <li>Tailwindcss</li>
                 <li>Tailwind-Variants</li>
                 <li>Typescript</li>
@@ -36,13 +37,13 @@ export default async function Page() {
                 <li>Python</li>
                 <li>Flask</li>
                 <li>FastAPI</li>
-                <li>Django (Most Favorite)</li>
+                <li>Django</li>
               </ul>
             </div>{" "}
             <div className="space-y-4">
               <h3>Database</h3>
               <ul className="flex flex-wrap gap-2">
-                <li>Postgres (Most Favorite)</li>
+                <li>Postgres</li>
                 <li>SQLite (I am big fan of)</li>
                 <li>MySQL</li>
                 <li>Mongo</li>
@@ -104,12 +105,10 @@ export default async function Page() {
               <ul className="flex flex-wrap gap-2 ">
                 <li>Ubuntu</li>
                 <li>Debian</li>
-                <li>CentOS</li>
                 <li>SSH</li>
                 <li>Systemctl</li>
-                <li>Package Management (apt, yum)</li>
+                <li>Package Management</li>
                 <li>Firewall Management (ufw, iptables)</li>
-                <li>SELinux</li>
                 <li>Monitoring and Logging (systemd-journald, syslog)</li>
               </ul>
             </div>

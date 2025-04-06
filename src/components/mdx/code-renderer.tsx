@@ -15,6 +15,10 @@ const jetBrainsMono = JetBrains_Mono({
 });
 
 export const CodeRenderer = ({ children, lang }: Props) => {
+  if (lang?.startsWith("-")) {
+    lang = lang.slice(1);
+  }
+
   return (
     <div className={`${jetBrainsMono.className} tracking-normal `}>
       <CodeBlock

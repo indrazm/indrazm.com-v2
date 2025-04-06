@@ -6,12 +6,12 @@ import Image from "next/image";
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     h1: ({ children }) => (
-      <h1 style={{ fontSize: "40px", lineHeight: "1.2" }} className="text-zinc-200 text-balance leading-relaxed">
+      <h1 style={{ fontSize: "36px", lineHeight: "1.2" }} className="text-zinc-200 text-balance leading-relaxed">
         {children}
       </h1>
     ),
     h2: ({ children }) => (
-      <h2 style={{ fontSize: "24px" }} className="text-zinc-400 leading-relaxed">
+      <h2 style={{ fontSize: "24px" }} className="text-zinc-200 leading-relaxed">
         {children}
       </h2>
     ),

@@ -1,0 +1,54 @@
+# Litojs: A Journey into Framework Building
+
+Since entering the JavaScript ecosystem, I've been consistently impressed by its vibrant community. It often feels as though a new package is released on npm daily, reflecting the typical JavaScript experience.
+
+I've experimented with numerous frameworks and libraries, appreciating the unique qualities of each. Eventually, my curiosity led me to question the underlying architecture of these frameworks. Consequently, I began exploring open-source code on GitHub, seeking to understand their construction.
+
+## The Concept
+
+I decided to embark on building my own framework, primarily as a learning exercise rather than for production use.
+
+The goal is to develop a **Pragmatic Framework**: a full-stack solution with an opinionated structure and comprehensive features. This is heavily inspired by Django in Python and Laravel in PHP.
+
+## The Process
+
+The guiding principle is to maintain simplicity without sacrificing speed, leading to the selection of Bun.js as the core runtime. While relatively new, Bun.js offers impressive JavaScript performance.
+
+My approach favors a Server-side First methodology. Centralizing business logic simplifies application development, although I recognize the prevalence of Client-side First approaches within the JavaScript community, largely due to React.js.
+
+Therefore, HTMX and Alpine.js were chosen as the client-side components. HTMX manages simple requests, while Alpine.js handles client-side logic.
+
+## The Challenges
+
+After several weeks of development, I encountered several significant challenges.
+
+The primary challenge involved designing an effective Developer Experience (DX). This required substantial refactoring to optimize usability.
+
+Initial considerations focused on the framework's entry point, adopting Django's approach with a WSGI application.
+
+```ts
+import { App } from "litojs";
+export const app = App({
+  apps: ["core"],
+});
+```
+
+The intention is to support multiple apps within a single project, promoting separation of concerns, similar to Django. New apps can be easily registered or removed from the main application.
+
+The project architecture follows a simple structure: Controllers for Business Logic, Models for Database Schema, Routers for routing, and Views for the Presentation Layer.
+
+```bash
+products
+├── controller.ts
+├── models.ts
+├── router.ts
+├── views.tsx
+```
+
+## Progress
+
+The project is ongoing, with an estimated completion timeframe of approximately six months. Updates on the development can be found at the following locations:
+
+- [Litojs Documentation](https://lito.indrazm.com)
+- [Github Repository](https://github.com/litojs/litojs)
+- [Changelog](https://lito.featurebase.app/changelog)
